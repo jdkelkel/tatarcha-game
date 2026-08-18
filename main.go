@@ -13,7 +13,7 @@ var userState = make(map[int64]Word) // userID → текущий Word
 func main() {
     rand.Seed(time.Now().UnixNano())
 
-    bot, err := tgbotapi.NewBotAPI("YOUR_TOKEN_HERE")
+    bot, err := tgbotapi.NewBotAPI("")
     if err != nil {
         log.Panic(err)
     }
@@ -31,13 +31,13 @@ func main() {
         userID := update.Message.From.ID
         text := update.Message.Text
 
-        // запуск игры
+
         if text == "/startgame" {
             StartGame(bot, chatID, userID)
             continue
         }
 
-        // если пользователь в игре — проверяем ответ
+
         if current, ok := userState[userID]; ok {
             HandleGameMessage(bot, chatID, userID, text, current)
             continue
